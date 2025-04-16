@@ -29,6 +29,100 @@ interface Result {
   phoneNumber: string;
 }
 
+function DynamicResults() {
+  const [results, setResults] = React.useState<Result[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [slideKey, setSlideKey] = React.useState(0);
+
+  const fetchResults = React.useCallback(async () => {
+    try {
+      const response = await fetch('/api/latest-results');
+      const data = await response.json();
+      setResults(prevResults => {
+        // Keep track of shown IDs to avoid duplicates
+        const shownIds = new Set(prevResults.map((r: Result) => r.id));
+        const newResults = data.results.filter((r: Result) => !shownIds.has(r.id));
+        
+        // Combine old and new results, keeping most recent 6
+        const combined = [...prevResults, ...newResults];
+        return combined.slice(-6);
+      });
+      setSlideKey(prev => prev + 1);
+    } catch (error) {
+      console.error('Failed to fetch results:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    fetchResults();
+    // Fetch new results every 3-5 seconds
+    const interval = setInterval(() => {
+      fetchResults();
+    }, 3000 + Math.random() * 2000);
+    return () => clearInterval(interval);
+  }, [fetchResults]);
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+      {isLoading ? (
+        // Show loading state
+        Array.from({ length: 6 }).map((_, index) => (
+          <ResultCard
+            key={`loading-${index}`}
+            name="Loading..."
+            time="A minute ago"
+            countryCode="us"
+            phoneCode="+1"
+            phoneNumber="XXX"
+            isLoading={true}
+          />
+        ))
+      ) : (
+        results.map((result, index) => (
+          <div
+            key={`${result.id}-${slideKey}-${index}`}
+            className="transform transition-all duration-500 ease-in-out"
+            style={{
+              animation: `slideIn 0.5s ease-out ${index * 0.1}s both`
+            }}
+          >
+            <ResultCard
+              name={result.name}
+              time={result.time}
+              countryCode={result.countryCode}
+              phoneCode={result.phoneCode}
+              phoneNumber={result.phoneNumber}
+            />
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+// Add the animation keyframes to your globals.css
+const animationStyles = `
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+`;
+
+// Add the styles to the page
+const styleSheet = document.createElement('style');
+styleSheet.textContent = animationStyles;
+if (typeof document !== 'undefined') {
+  document.head.appendChild(styleSheet);
+}
+
 export default function HomePage() {
   // Sample data for FAQ
   const faqItems = [
@@ -94,61 +188,6 @@ export default function HomePage() {
       verified: true,
     },
   ];
-
-  // Replace the static latestResults array with a dynamic component
-  function DynamicResults() {
-    const [results, setResults] = React.useState<Result[]>([]);
-    const [isLoading, setIsLoading] = React.useState(true);
-
-    React.useEffect(() => {
-      const fetchResults = async () => {
-        try {
-          const response = await fetch('/api/latest-results');
-          const data = await response.json();
-          setResults(data.results);
-        } catch (error) {
-          console.error('Failed to fetch results:', error);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-
-      fetchResults();
-      // Refresh results every minute
-      const interval = setInterval(fetchResults, 60000);
-      return () => clearInterval(interval);
-    }, []);
-
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-        {isLoading ? (
-          // Show loading state
-          Array.from({ length: 6 }).map((_, index) => (
-            <ResultCard
-              key={`loading-${index}`}
-              name="Loading..."
-              time="A minute ago"
-              countryCode="us"
-              phoneCode="+1"
-              phoneNumber="XXX"
-              isLoading={true}
-            />
-          ))
-        ) : (
-          results.map((result) => (
-            <ResultCard
-              key={result.id}
-              name={result.name}
-              time={result.time}
-              countryCode={result.countryCode}
-              phoneCode={result.phoneCode}
-              phoneNumber={result.phoneNumber}
-            />
-          ))
-        )}
-      </div>
-    );
-  }
 
   return (
     <div className="flex flex-col">
