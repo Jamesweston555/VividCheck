@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import PhoneSearchForm from '@/components/PhoneSearchForm';
 import FeatureCard from '@/components/FeatureCard';
@@ -17,6 +19,15 @@ import {
   Search,
   ChevronRight
 } from 'lucide-react';
+
+interface Result {
+  id: string;
+  name: string;
+  time: string;
+  countryCode: string;
+  phoneCode: string;
+  phoneNumber: string;
+}
 
 export default function HomePage() {
   // Sample data for FAQ
@@ -84,57 +95,60 @@ export default function HomePage() {
     },
   ];
 
-  // Sample latest results
-  const latestResults = [
-    {
-      id: 'result-1',
-      name: 'Hernandez Margarita',
-      time: 'A minute ago',
-      countryCode: 'mx',
-      phoneCode: '+52',
-      phoneNumber: '157',
-    },
-    {
-      id: 'result-2',
-      name: 'Brown William',
-      time: 'A minute ago',
-      countryCode: 'ca',
-      phoneCode: '+1',
-      phoneNumber: '372',
-    },
-    {
-      id: 'result-3',
-      name: 'Perez Veronica',
-      time: 'A minute ago',
-      countryCode: 'mx',
-      phoneCode: '+52',
-      phoneNumber: '510',
-    },
-    {
-      id: 'result-4',
-      name: 'Smith Elijah',
-      time: 'A minute ago',
-      countryCode: 'us',
-      phoneCode: '+1',
-      phoneNumber: '282',
-    },
-    {
-      id: 'result-5',
-      name: 'Davis Emma',
-      time: 'A minute ago',
-      countryCode: 'us',
-      phoneCode: '+1',
-      phoneNumber: '621',
-    },
-    {
-      id: 'result-6',
-      name: 'Jones Noah',
-      time: 'A minute ago',
-      countryCode: 'gb',
-      phoneCode: '+44',
-      phoneNumber: '907',
-    },
-  ];
+  // Replace the static latestResults array with a dynamic component
+  function DynamicResults() {
+    const [results, setResults] = React.useState<Result[]>([]);
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    React.useEffect(() => {
+      const fetchResults = async () => {
+        try {
+          const response = await fetch('/api/latest-results');
+          const data = await response.json();
+          setResults(data.results);
+        } catch (error) {
+          console.error('Failed to fetch results:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      fetchResults();
+      // Refresh results every minute
+      const interval = setInterval(fetchResults, 60000);
+      return () => clearInterval(interval);
+    }, []);
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+        {isLoading ? (
+          // Show loading state
+          Array.from({ length: 6 }).map((_, index) => (
+            <ResultCard
+              key={`loading-${index}`}
+              name="Loading..."
+              time="A minute ago"
+              countryCode="us"
+              phoneCode="+1"
+              phoneNumber="XXX"
+              isLoading={true}
+            />
+          ))
+        ) : (
+          results.map((result) => (
+            <ResultCard
+              key={result.id}
+              name={result.name}
+              time={result.time}
+              countryCode={result.countryCode}
+              phoneCode={result.phoneCode}
+              phoneNumber={result.phoneNumber}
+            />
+          ))
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">
@@ -347,21 +361,9 @@ export default function HomePage() {
             Latest Results
           </h2>
           <p className="text-center text-gray-600 max-w-3xl mx-auto mb-10">
-            Here are some of the latest results from our reverse phone lookup service.
+            Here are some of the latest results from our reverse phone lookup service in your region.
           </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            {latestResults.map((result) => (
-              <ResultCard
-                key={result.id}
-                name={result.name}
-                time={result.time}
-                countryCode={result.countryCode}
-                phoneCode={result.phoneCode}
-                phoneNumber={result.phoneNumber}
-              />
-            ))}
-          </div>
+          <DynamicResults />
         </div>
       </section>
 
