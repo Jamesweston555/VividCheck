@@ -137,28 +137,25 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-background to-background/80 py-20 md:py-32">
-        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      <section className="relative overflow-hidden bg-gradient-to-br from-background to-background/80 py-16">
         <div className="container relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="flex flex-col gap-8">
-              <h1 className="text-4xl md:text-6xl font-bold text-accent leading-tight">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div className="flex flex-col gap-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-accent">
                 Reverse Phone <span className="text-primary">Lookup</span>
               </h1>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                Look up any phone number to reveal its owner. Uncover full name, address, family members, social media profiles, email address, and location history.
+              <p className="text-lg text-gray-600">
+                Look up private any phone number to reveal its owner. Uncover full name, address, family members, social media profiles, email address, and location history.
               </p>
-              <div className="w-full max-w-lg">
-                <PhoneSearchForm />
-              </div>
+              <PhoneSearchForm />
             </div>
             <div className="flex justify-center lg:justify-end">
               <img
                 src="https://ext.same-assets.com/2758422361/1039623347.svg"
                 alt="Phone Lookup Illustration"
-                className="max-w-full h-auto transform hover:scale-105 transition-transform duration-300"
+                className="max-w-full h-auto"
               />
             </div>
           </div>
@@ -166,72 +163,78 @@ export default function HomePage() {
       </section>
 
       {/* Logo Bar */}
-      <section className="py-12 border-t border-b border-gray-100 bg-white">
+      <section className="py-8 border-t border-b border-gray-100 bg-white">
         <div className="container">
-          <div className="flex flex-wrap justify-center items-center gap-12 opacity-60">
-            <img src="https://ext.same-assets.com/2758422361/3299597553.svg" alt="Fox Logo" className="h-6 hover:opacity-100 transition-opacity" />
-            <img src="https://ext.same-assets.com/2758422361/1879644111.svg" alt="The Globe and Mail Logo" className="h-6 hover:opacity-100 transition-opacity" />
-            <img src="https://ext.same-assets.com/2758422361/3538535022.svg" alt="Benzinga Logo" className="h-6 hover:opacity-100 transition-opacity" />
-            <img src="https://ext.same-assets.com/2758422361/3073708953.svg" alt="Barchart Logo" className="h-6 hover:opacity-100 transition-opacity" />
-            <img src="https://ext.same-assets.com/2758422361/1879644111.svg" alt="The Globe and Mail Logo" className="h-6 hover:opacity-100 transition-opacity" />
+          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
+            <img src="https://ext.same-assets.com/2758422361/3299597553.svg" alt="Fox Logo" className="h-5" />
+            <img src="https://ext.same-assets.com/2758422361/1879644111.svg" alt="The Globe and Mail Logo" className="h-5" />
+            <img src="https://ext.same-assets.com/2758422361/3538535022.svg" alt="Benzinga Logo" className="h-5" />
+            <img src="https://ext.same-assets.com/2758422361/3073708953.svg" alt="Barchart Logo" className="h-5" />
+            <img src="https://ext.same-assets.com/2758422361/1879644111.svg" alt="The Globe and Mail Logo" className="h-5" />
           </div>
         </div>
       </section>
 
       {/* What You Could Discover Section */}
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-white">
         <div className="container">
-          <h2 className="text-4xl font-bold text-center text-accent mb-6">What You Could Discover</h2>
-          <p className="text-center text-gray-600 max-w-3xl mx-auto mb-16 text-lg">
+          <h2 className="text-3xl font-bold text-center text-accent mb-12">What You Could Discover</h2>
+
+          <p className="text-center text-gray-600 max-w-3xl mx-auto mb-12">
             A reverse phone lookup is a powerful online tool that allows you to uncover information associated with a phone number. By entering a number, you can access a detailed report compiled from various sources.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <FeatureCard
-              icon={<User className="h-8 w-8" />}
+              icon={<User className="h-6 w-6" />}
               title="Full Name"
               description="Identify names potentially associated with the phone number."
             />
             <FeatureCard
-              icon={<Home className="h-8 w-8" />}
+              icon={<Home className="h-6 w-6" />}
               title="Home Address"
               description="Discover possible current and historical address information."
             />
             <FeatureCard
-              icon={<User className="h-8 w-8" />}
+              icon={<User className="h-6 w-6" />}
               title="Family Members"
               description="Discover potential family members and relatives."
             />
             <FeatureCard
-              icon={<Globe className="h-8 w-8" />}
+              icon={<Globe className="h-6 w-6" />}
               title="Social Media Profiles"
               description="Find associated social media profiles."
             />
             <FeatureCard
-              icon={<Mail className="h-8 w-8" />}
+              icon={<Mail className="h-6 w-6" />}
               title="Email Addresses"
               description="Reveal any publicly available contact information."
             />
             <FeatureCard
-              icon={<MapPin className="h-8 w-8" />}
+              icon={<MapPin className="h-6 w-6" />}
               title="Location History"
               description="See information about potential prior locations and travel."
+            />
+            <FeatureCard
+              icon={<Globe className="h-6 w-6" />}
+              title="Web Activity"
+              description="Collect real-time information from across the web."
             />
           </div>
         </div>
       </section>
 
       {/* Why Use Reverse Phone Lookup Section */}
-      <section className="py-24 bg-background">
+      <section className="py-16 bg-background">
         <div className="container">
-          <h2 className="text-4xl font-bold text-center text-accent mb-6">
+          <h2 className="text-3xl font-bold text-center text-accent mb-4">
             Why Use Reverse Phone <span className="text-primary">Lookup?</span>
           </h2>
-          <p className="text-center text-gray-600 max-w-3xl mx-auto mb-16 text-lg">
+          <p className="text-center text-gray-600 max-w-3xl mx-auto mb-16">
             In today's digital world, having more information can help you make informed personal decisions. Our reverse phone lookup service can help you:
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
             <NumberedCard
               number={1}
               title="Identify Unknown Callers"
@@ -245,42 +248,135 @@ export default function HomePage() {
             <NumberedCard
               number={3}
               title="Verify Online Identities"
-              description="Confirm the identity of people you meet online before meeting in person."
+              description="Get more control about individuals you're interacting with online for personal reasons."
+            />
+            <NumberedCard
+              number={4}
+              title="Investigate Suspicious Activity"
+              description="Concerned about mysterious numbers? Our service can help you understand who might be trying to reach you."
+            />
+            <NumberedCard
+              number={5}
+              title="Monitor Your Online Presence"
+              description="Search your own number to see what information is available about you online and identify potential leaks."
             />
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-24 bg-white">
+      {/* Additional Use Cases Section */}
+      <section className="py-12 bg-white">
         <div className="container">
-          <h2 className="text-4xl font-bold text-center text-accent mb-16">What Our Users Say</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="text-center mb-10">
+            <span className="text-xs font-medium bg-primary/10 text-primary px-3 py-1 rounded-full uppercase tracking-wider">
+              EXTRAS
+            </span>
+          </div>
+          <h2 className="text-3xl font-bold text-center text-accent mb-12">
+            Additional Use Cases
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <UseCase title="Verify sellers or buyers in personal online marketplace transactions." />
+            <UseCase title="Research potential roommates." />
+            <UseCase title="Identify the source of bothersome calls or messages." />
+            <UseCase title="Verify the identity of your children's new friends' parents." />
+            <UseCase title="Investigate potential catfishing in online communities." />
+          </div>
+        </div>
+      </section>
+
+      {/* 7-Day Trial Section */}
+      <section className="py-16 bg-background">
+        <div className="container">
+          <h2 className="text-3xl font-bold text-center text-accent mb-12">
+            Start Your 7-Day Trial
+          </h2>
+          <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
+            <div className="text-gray-600">
+              <p>Get a 7-day trial for just $1.00. After trial, we'll charge $14.99/week until you cancel.</p>
+              <a href="/en/pricing" className="text-primary hover:underline flex items-center mt-2">
+                See our detailed pricing <ChevronRight className="h-4 w-4 ml-1" />
+              </a>
+            </div>
+            <Button className="rounded-full bg-secondary hover:bg-secondary/90 px-6">
+              Try ClarityCheck
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-16 bg-white">
+        <div className="container">
+          <h2 className="text-3xl font-bold text-center text-accent mb-3">
+            <span className="text-primary">Thousands</span> Are Finding Clarity with Us
+          </h2>
+          <div className="flex justify-center items-center gap-2 mb-12">
+            <span className="text-sm">Excellent</span>
+            <div className="flex gap-0.5">
+              {[1, 2, 3, 4, 5].map((num) => (
+                <svg key={`star-${num}`} className="w-4 h-4 text-yellow-400 fill-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z" />
+                </svg>
+              ))}
+            </div>
+            <span className="text-sm">4.75 based on 338 reviews</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((testimonial) => (
-              <TestimonialCard key={testimonial.id} {...testimonial} />
+              <TestimonialCard
+                key={testimonial.id}
+                name={testimonial.name}
+                location={testimonial.location}
+                text={testimonial.text}
+                date={testimonial.date}
+                rating={testimonial.rating}
+                verified={testimonial.verified}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Results Section */}
+      <section className="py-16 bg-background">
+        <div className="container">
+          <h2 className="text-3xl font-bold text-center text-primary mb-8">
+            Latest Results
+          </h2>
+          <p className="text-center text-gray-600 max-w-3xl mx-auto mb-10">
+            Here are some of the latest results from our reverse phone lookup service.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {latestResults.map((result) => (
+              <ResultCard
+                key={result.id}
+                name={result.name}
+                time={result.time}
+                countryCode={result.countryCode}
+                phoneCode={result.phoneCode}
+                phoneNumber={result.phoneNumber}
+              />
             ))}
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-background">
+      <section className="py-16 bg-white">
         <div className="container">
-          <h2 className="text-4xl font-bold text-center text-accent mb-16">Frequently Asked Questions</h2>
-          <div className="max-w-3xl mx-auto">
-            <FAQAccordion items={faqItems} />
-          </div>
-        </div>
-      </section>
-
-      {/* Latest Results Section */}
-      <section className="py-24 bg-white">
-        <div className="container">
-          <h2 className="text-4xl font-bold text-center text-accent mb-16">Latest Lookups</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {latestResults.map((result) => (
-              <ResultCard key={result.id} {...result} />
-            ))}
+          <div className="flex flex-col md:flex-row gap-8">
+            <div className="md:w-1/3">
+              <h2 className="text-3xl font-bold text-accent mb-4">
+                Frequently<br />Asked<br />Questions
+              </h2>
+            </div>
+            <div className="md:w-2/3">
+              <FAQAccordion items={faqItems} />
+            </div>
           </div>
         </div>
       </section>
